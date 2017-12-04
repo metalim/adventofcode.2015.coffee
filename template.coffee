@@ -5,4 +5,7 @@ input = '''
 
 f = ( )->
 
-_log f input
+try
+	_log f input
+catch e
+	_log e
