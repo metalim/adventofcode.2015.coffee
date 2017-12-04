@@ -1,4 +1,4 @@
-_log = console.log.bind console
+{_log, permute} = require './util'
 
 input = '''
 Faerun to Tristram = 65
@@ -31,31 +31,6 @@ Straylight to Arbre = 14
 AlphaCentauri to Arbre = 46
 '''.split '\n'
 
-
-permute = ( arr, cb )->
-	permutation = arr[..]
-	length = permutation.length
-	c = new Array(length).fill 0
-	i = 1
-	result = [permutation[..]] unless cb?
-	#k, p;
-
-	while i < length
-		if c[i] < i
-			k = i % 2 and c[i]
-			p = permutation[i]
-			permutation[i] = permutation[k]
-			permutation[k] = p
-			++c[i]
-			i = 1
-			if cb?
-				cb permutation
-			else
-				result.push permutation[..]
-		else
-			c[i] = 0
-			++i
-	result unless cb?
 
 create_routes = ( spec )->
 	routes = {}
