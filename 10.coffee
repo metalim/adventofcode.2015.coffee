@@ -21,9 +21,9 @@ say = ( s, times )->
 				cur = c
 		out += "#{num}#{cur}"
 		s = out
-		_log out.length
+		#_log out.length
 	out
 
-#_log say(input, 40).length
-_log say(input, 50).length
+_log 40, say(input, 40).length
+_log 50, say(input, 50).length
 
