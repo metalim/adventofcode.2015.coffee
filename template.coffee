@@ -1,4 +1,4 @@
-_log = console.log.bind console
+_log = require 'ololog'
 
 input = '''
 '''
