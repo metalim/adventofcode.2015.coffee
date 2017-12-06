@@ -57,9 +57,8 @@ equip = ( pl, eq )->
 		pl.def += it[2]
 	pl.cost
 
-find_least_gold_to_win = ( shop, boss )->
+find_min_gold_to_win = ( shop, boss )->
 	min = Infinity
-	min_cfg = ''
 	player = {}
 	permute.n_of 1, shop.weapons, (w)->
 		permute.minmax_of 0,1, shop.armors, (a)->
@@ -68,8 +67,19 @@ find_least_gold_to_win = ( shop, boss )->
 				if cost < min and fight player, boss
 					_log.yellow cost, cfg
 					min = cost
-					min_cfg = cfg
 	min
+
+find_max_gold_to_lose = ( shop, boss )->
+	max = 0
+	player = {}
+	permute.n_of 1, shop.weapons, (w)->
+		permute.minmax_of 0,1, shop.armors, (a)->
+			permute.minmax_of 0,2, shop.rings, (r)->
+				cost = equip player, cfg = w.concat a.concat r
+				if cost > max and not fight player, boss
+					_log.yellow cost, cfg
+					max = cost
+	max
 
 do ->
 	try
@@ -105,7 +115,9 @@ do ->
 				[40, 0, 2]
 				[80, 0, 3]
 			]
-		_log.green find_least_gold_to_win shop, boss
+
+		_log.green find_min_gold_to_win shop, boss
+		_log.green find_max_gold_to_lose shop, boss
 
 	catch e
 		_log.red e
