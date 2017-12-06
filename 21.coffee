@@ -67,6 +67,7 @@ find_min_gold_to_win = ( shop, boss )->
 				if cost < min and fight player, boss
 					_log.yellow cost, cfg
 					min = cost
+				return
 	min
 
 find_max_gold_to_lose = ( shop, boss )->
@@ -79,6 +80,7 @@ find_max_gold_to_lose = ( shop, boss )->
 				if cost > max and not fight player, boss
 					_log.yellow cost, cfg
 					max = cost
+				return
 	max
 
 do ->
