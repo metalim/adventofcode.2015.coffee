@@ -31,18 +31,20 @@ permute = exports.permute = ( arr, cb )->
 
 n_of = permute.n_of = ( n, arr, cb, args=[] )->
 	if n<1
-		cb []
-		return
+		return cb []
 	for el, i in arr
 		if n>1
 			next = arr[...i].concat arr[i+1..]
-			n_of n-1, next, cb, args.concat [el]
+			out = n_of n-1, next, cb, args.concat [el]
 		else
-			cb args.concat [el]
+			out = cb args.concat [el]
+		if out
+			return out
 	return
 
 minmax_of = permute.minmax_of = ( min, max, arr, cb )->
 	for i in [min..max]
-		n_of i, arr, cb
+		if out = n_of i, arr, cb
+			return out
 	return
 
